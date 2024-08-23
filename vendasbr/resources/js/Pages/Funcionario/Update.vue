@@ -7,15 +7,22 @@ import { Link, useForm, usePage } from '@inertiajs/vue3';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
 
+const props = defineProps({
+    user:{
+        type: Object
+    }
+})
+
 const form = useForm({
-    name: '',
-    email: '',
-    cpf:'',
-    password:'',
+    id: props.user.id,
+    name: props.user.name,
+    email: props.user.email,
+    cpf: props.user.cpf,
+    password: ''
 });
 
 function handleSubmit() {
-    form.post(route('funcionario.store'), {
+    form.put(route('funcionario.att'), {
         onSuccess: ()=> form.reset() 
     })
 }
@@ -23,11 +30,11 @@ function handleSubmit() {
 </script>
 
 <template>
-    <Head title="Cadastrar Funcionário" />
+    <Head title="Update" />
 
     <AuthenticatedLayout>
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Cadastrar Funcionário</h2>
+            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Atualizar Cadastro</h2>
         </template>
 
         <div class="py-12">
