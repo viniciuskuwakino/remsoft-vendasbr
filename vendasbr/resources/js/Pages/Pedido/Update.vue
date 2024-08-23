@@ -2,27 +2,33 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, useForm } from '@inertiajs/vue3';
 
-const form = useForm({
-    nome: '',
-    preco: '',
-    status: ''
+const props = defineProps({
+    pedido: {
+        type: Object
+    }
 });
-const submitForm = () => {
 
-    form.post(route('pedido.store'), {
-        onSuccess: () => {
-            form.reset();
-        }
-    })
-};
+const form = useForm({
+    id: props.pedido.id,
+    nome: props.pedido.nome,
+    preco: props.pedido.preco,
+    status: props.pedido.status
+});
+
+function submitForm(){
+    form.put(route('pedido.att'), {
+        onSuccess:()=>form.reset()
+    });
+}
+
 </script>
 
 <template>
-    <Head title="Cadastro de Pedido" />
+    <Head title="Atualizar o Pedido" />
 
     <AuthenticatedLayout>
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Cadastro de Pedido</h2>
+            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Atualizar o Pedido</h2>
         </template>
 
         <div class="py-12">
@@ -46,7 +52,7 @@ const submitForm = () => {
                             </div>
 
                             <div class="flex justify-end">
-                                <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">Cadastrar</button>
+                                <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">Atualizar</button>
                                 
                             </div>
                         </form>
