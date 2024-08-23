@@ -7,16 +7,23 @@ import TextInput from '@/Components/TextInput.vue';
 import { Link, useForm} from '@inertiajs/vue3';
 import { Head } from '@inertiajs/vue3';
 
+const props = defineProps({
+    cliente: {
+        type: Object
+    }
+})
+
 const form = useForm({
-    name: '',
-    email: '',
-    cpf: '',
-    senha: '',
-    endereco: ''
+    id: props.cliente.id,
+    name: props.cliente.nome,
+    email: props.cliente.email,
+    cpf: props.cliente.cpf,
+    senha: props.cliente.senha,
+    endereco: props.cliente.endereco
 });
 
 function handleSubmit(){
-    form.post(route('cliente.store'), {
+    form.put(route('cliente.att'), {
         onSuccess:()=>form.reset()
     });
 }
@@ -24,11 +31,11 @@ function handleSubmit(){
 </script>
 
 <template>
-    <Head title="Cadastrar Cliente" />
+    <Head title="Alterar cadastro do Cliente" />
 
     <AuthenticatedLayout>
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Cadastrar Clientes</h2>
+            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Alterar cadastro dos Clientes</h2>
         </template>
 
         <div class="py-12">
