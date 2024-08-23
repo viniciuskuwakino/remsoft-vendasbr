@@ -2,7 +2,6 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, router} from '@inertiajs/vue3';
 
-
 defineProps({
     users:{
         type: Object
